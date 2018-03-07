@@ -10,7 +10,8 @@
       "assets": [
         "assets",
         "favicon.ico",
-        "favicon-256.png"
+        "favicon-256.png",
+        "manifest.json"
       ],
       "index": "index.html",
       "main": "boot.browser.ts",
