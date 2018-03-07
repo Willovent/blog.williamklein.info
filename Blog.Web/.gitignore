@@ -262,3 +262,5 @@ _Pvt_Extensions
 coverage/
 
 .DS_Store
+dist-server/
+wwwroot/

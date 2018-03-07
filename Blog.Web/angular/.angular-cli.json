@@ -9,7 +9,8 @@
       "outDir": "../wwwroot",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        "favicon-256.png"
       ],
       "index": "index.html",
       "main": "boot.browser.ts",
@@ -18,6 +19,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
+      "serviceWorker": true,
       "styles": [
         "styles.scss"
       ],
@@ -30,14 +32,13 @@
     },
     {
       "name": "server",
-      "index": "index.html",
-      "platform": "server",
       "root": ".",
       "outDir": "dist-server",
+      "platform": "server",
+      "index": "index.html",
       "main": "boot.server.ts",
       "tsconfig": "tsconfig.server.json",
-      "styles": [
-      ],
+      "styles": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -71,6 +72,7 @@
   },
   "defaults": {
     "styleExt": "scss",
-    "component": {}
+    "component": {
+    }
   }
 }
