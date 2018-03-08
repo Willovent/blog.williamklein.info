@@ -8,9 +8,11 @@
         cursor: pointer;
         mat-card-header {
             margin-bottom: -24px;
-            width: 100%;
-            .mat-card-subtitle {
-                float: right;
+            .mat-card-header-text {
+                width: 100%;
+                .mat-card-subtitle {
+                    float: right;
+                }
             }
         }
     }
