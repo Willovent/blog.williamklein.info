@@ -8,6 +8,12 @@
         cursor: pointer;
         mat-card-header {
             margin-bottom: -24px;
+            .mat-card-header-text {
+                width: 100%;
+                .mat-card-subtitle {
+                    float: right;
+                }
+            }
         }
     }
     h1 a {

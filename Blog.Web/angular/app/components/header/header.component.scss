@@ -19,10 +19,15 @@ mat-card {
             background: url('../../../assets/header.png');
             background-position: center;
             background-size: cover;
+            height: #{calc(100% + 48px)};
+            min-height: 130px;
         }
     }
     &.me-header {
         min-width: 200px;
+        @media (max-width: 950px) {
+            margin: 0 auto;
+        }
         .mat-card-image {
             display: flex;
             justify-content: center;
