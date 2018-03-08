@@ -54,7 +54,7 @@ namespace Blog.Web
       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
       services.AddMvc();
       services.AddNodeServices();
-      services.AddNodeServices();
+      services.AddMemoryCache();
       services.AddCors(x => x.AddPolicy("dev", y => y.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials()));
 
       services.AddAuthentication(options =>

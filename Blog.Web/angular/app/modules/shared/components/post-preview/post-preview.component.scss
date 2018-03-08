@@ -8,7 +8,7 @@
         cursor: pointer;
         mat-card-header {
             margin-bottom: -24px;
-            .mat-card-header-text {
+            ::ng-deep.mat-card-header-text {
                 width: 100%;
                 .mat-card-subtitle {
                     float: right;
