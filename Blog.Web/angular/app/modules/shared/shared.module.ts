@@ -4,6 +4,7 @@ import { MomentPipe } from './pipe/moment.pipe';
 import { PostPreviewComponent, ScrollContainerComponent } from '@bw/shared/components';
 import { materialModule } from './shared.module.material';
 import { RouterModule } from '@angular/router';
+import { BackGroundImageDirective } from './directive/background-image.directive';
 
 @NgModule({
   imports: [
@@ -14,12 +15,14 @@ import { RouterModule } from '@angular/router';
   declarations: [
     MomentPipe,
     PostPreviewComponent,
+    BackGroundImageDirective,
     ScrollContainerComponent
   ],
   exports: [
     MomentPipe,
     PostPreviewComponent,
-    ScrollContainerComponent
+    ScrollContainerComponent,
+    BackGroundImageDirective
   ]
 })
 export class SharedModule { }

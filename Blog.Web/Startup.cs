@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Threading.Tasks;
 using Blog.Domain.Command;
+using Blog.Web.Sitemap;
 
 namespace Blog.Web
 {
@@ -56,7 +57,7 @@ namespace Blog.Web
       services.AddNodeServices();
       services.AddMemoryCache();
       services.AddCors(x => x.AddPolicy("dev", y => y.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials()));
-
+      services.AddScoped<SitemapBuilder>();
       services.AddAuthentication(options =>
       {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

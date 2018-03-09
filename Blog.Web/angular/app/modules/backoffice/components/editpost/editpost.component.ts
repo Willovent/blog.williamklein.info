@@ -22,13 +22,15 @@ export class EditPostComponent implements OnInit {
   category: Category;
   isServer: boolean;
   showHeader = false;
+  flushKey: string;
+
   @Output()
   changed = new EventEmitter<Post>();
 
   @Input()
   post?: Post;
 
-  constructor(private markdownService: MarkdownService, private backOfficeService: BackOfficeService,@Inject(PLATFORM_ID) platformId) {
+  constructor(private markdownService: MarkdownService, private backOfficeService: BackOfficeService, @Inject(PLATFORM_ID) platformId) {
     this.isServer = isPlatformServer(platformId);
   }
 
@@ -58,5 +60,9 @@ export class EditPostComponent implements OnInit {
       url: slug(this.title)
     };
     this.changed.emit(post);
+  }
+
+  flushCacheForKey() {
+    this.backOfficeService.flushCache(encodeURIComponent(this.flushKey)).subscribe(() => this.flushKey = '');
   }
 }

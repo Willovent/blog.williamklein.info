@@ -2,7 +2,7 @@
 <app-scroll-container>
   <ng-container *ngIf="!!post">
     <mat-card>
-      <div mat-card-image [style.background-image]="'url('+this.post.category.imageUrl+')'" alt="Photo of a Shiba Inu">
+      <div mat-card-image [appBackgroundImage]="post.category.imageUrl" alt="Photo of a Shiba Inu">
         <h1>
           {{post.title}}
         </h1>

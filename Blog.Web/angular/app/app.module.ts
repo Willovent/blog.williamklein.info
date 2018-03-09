@@ -25,7 +25,7 @@ import { environment } from '../environments/environment';
     HomeComponent,
     NotFoundComponent,
     PostComponent,
-    HeaderComponent,
+    HeaderComponent
   ],
   imports: [
     SharedModule,
