@@ -32,7 +32,7 @@
         font-size: 16px;
         padding: 10px;
     }
-    button {
+    button[mat-fab] {
         position: absolute;
         top: 50px;
         right: 50px;
@@ -54,5 +54,10 @@
         textarea {
             min-height: 300px;
         }
+    }
+    .flush{
+      position: absolute;
+      top: 17px;
+      right: 0;
     }
 }

@@ -32,7 +32,7 @@ namespace Blog.Web.Controllers
     [Route("flush-cache/{key}")]
     public async Task<IActionResult> AddPost(string key, [FromServices] IMemoryCache cache)
     {
-      cache.Remove(key);
+      cache.Remove(Uri.UnescapeDataString(key));
       return Ok();
     }
 
