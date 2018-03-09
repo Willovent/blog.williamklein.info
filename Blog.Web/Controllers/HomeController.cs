@@ -9,6 +9,12 @@ using Microsoft.AspNetCore.SpaServices.Prerendering;
 using Microsoft.AspNetCore.Hosting;
 using System.Threading;
 using Microsoft.Extensions.Caching.Memory;
+using System.Text;
+using Blog.Web.Sitemap;
+using Blog.Domain;
+using Blog.Domain.Queries;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Web.Controllers
 {
@@ -45,7 +51,7 @@ namespace Blog.Web.Controllers
             Request.PathBase.ToString()
         );
       });
-      
+
 
 
       ViewData["SpaHtml"] = prerenderResult.Html;
@@ -59,21 +65,48 @@ namespace Blog.Web.Controllers
       return View();
     }
 
-    [HttpGet]
-    [Route("sitemap.xml")]
-    public async Task<IActionResult> SitemapXml()
+    [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Any)]
+    [Route("robots.txt")]
+    public ContentResult RobotsText()
     {
-      String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+      var stringBuilder = new StringBuilder();
 
-      xml += "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
-      xml += "<sitemap>";
-      xml += "<loc>http://localhost:4251/home</loc>";
-      xml += "<lastmod>" + DateTime.Now.ToString("yyyy-MM-dd") + "</lastmod>";
-      xml += "</sitemap>";
-      xml += "</sitemapindex>";
+      stringBuilder.AppendLine("user-agent: *");
+      stringBuilder.AppendLine("allow: /");
+      stringBuilder.Append("sitemap: ");
+      stringBuilder.AppendLine(Url.Action("SitemapXml", "Seo", null, Request.Scheme).TrimEnd('/'));
 
-      return Content(xml, "text/xml");
+      return Content(stringBuilder.ToString(), "text/plain", Encoding.UTF8);
+    }
 
+    [Route("sitemap.xml")]
+    public async Task<IActionResult> SitemapXml([FromServices]SitemapBuilder sitemapBuilder, [FromServices] QueryCommandBuilder queryCommandBuilder)
+    {
+      var now = DateTime.Now;
+
+      // Fixed pages -> Home & Home blog
+      sitemapBuilder.AddUrl(new SitemapNode
+      {
+        Url = $"{Request.Scheme}://{Request.Host}",
+        ChangeFrequency = ChangeFrequency.Always,
+        Modified = now,
+        Priority = 1
+      });
+
+      // Posts pages
+      var posts = await queryCommandBuilder.Build<GetPostsQuery>().Build().Select(p => new { PostUrl = p.Url, CategoryCode = p.Category.Code, PublicationDate = p.PublicationDate }).ToListAsync();
+      foreach (var post in posts)
+      {
+        sitemapBuilder.AddUrl(new SitemapNode
+        {
+          Url = $"{Request.Scheme}://{Request.Host}/posts/{post.CategoryCode}/{post.PostUrl}",
+          Priority = 0.5,
+          Modified = post.PublicationDate,
+          ChangeFrequency = ChangeFrequency.Always
+        });
+      }
+
+      return Content(sitemapBuilder.ToString(), "application/xml", Encoding.UTF8);
     }
 
     public IActionResult Error()

@@ -28,4 +28,8 @@ export class BackOfficeService {
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${environment.apiUrl}/blog/categories`);
   }
+
+  flushCache(key): Observable<void> {
+    return this.http.get<void>(`${environment.apiUrl}/backoffice/flush-cache/${key}`);
+  }
 }

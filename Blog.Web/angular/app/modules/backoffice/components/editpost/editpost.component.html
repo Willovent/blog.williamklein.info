@@ -1,3 +1,7 @@
+<mat-form-field>
+  <input type="text" matInput [(ngModel)]="flushKey" placeholder="Flush cache">
+  <button (click)="flushCacheForKey()">Flush</button>
+</mat-form-field>
 <table cellspacing="20">
   <tr>
     <td>
