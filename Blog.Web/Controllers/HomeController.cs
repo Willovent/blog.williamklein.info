@@ -27,6 +27,7 @@ namespace Blog.Web.Controllers
       var prerenderResult = await cache.GetOrCreateAsync(unencodedPathAndQuery, entry =>
       {
         entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(10);
+        entry.SlidingExpiration = TimeSpan.FromDays(3);
         var unencodedAbsoluteUrl = $"{Request.Scheme}://{Request.Host}{unencodedPathAndQuery}";
         var applicationBasePath = hostEnv.ContentRootPath;
 

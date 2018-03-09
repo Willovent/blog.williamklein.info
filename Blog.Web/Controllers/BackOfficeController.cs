@@ -6,9 +6,11 @@ using Blog.Domain;
 using Blog.Domain.Command;
 using Blog.Domain.Queries;
 using Blog.Web.Models;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,10 +27,12 @@ namespace Blog.Web.Controllers
       this.queryCommandBuilder = queryCommandBuilder;
     }
 
+
     [HttpPost]
     [Route("")]
-    public async Task<IActionResult> AddPost([FromBody]Data.Post post)
+    public async Task<IActionResult> AddPost([FromBody]Data.Post post, [FromServices] IMemoryCache cache)
     {
+      cache.Remove($"/");
       await this.queryCommandBuilder.Build<AddPostCommand>().ExecuteAsync(post);
       return Ok();
     }
