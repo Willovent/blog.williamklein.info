@@ -1,6 +1,6 @@
-import { PLATFORM_ID, EventEmitter, Output, Input } from '@angular/core';
+import { PLATFORM_ID, EventEmitter, Output, Input, ViewChild, ComponentRef } from '@angular/core';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MarkdownService } from 'ngx-markdown';
+import { MarkdownComponent } from 'ngx-markdown';
 import { BackOfficeService } from '../../services/backoffice.service';
 import * as slug from 'slug';
 import { Post, Category } from '@bw/models';
@@ -30,7 +30,9 @@ export class EditPostComponent implements OnInit {
   @Input()
   post?: Post;
 
-  constructor(private markdownService: MarkdownService, private backOfficeService: BackOfficeService, @Inject(PLATFORM_ID) platformId) {
+  @ViewChild(MarkdownComponent) renderedContent: MarkdownComponent;
+
+  constructor(private backOfficeService: BackOfficeService, @Inject(PLATFORM_ID) platformId) {
     this.isServer = isPlatformServer(platformId);
   }
 
@@ -53,7 +55,7 @@ export class EditPostComponent implements OnInit {
       id: this.id,
       categoryId: this.category.id,
       description: this.description,
-      content: this.markdownService.compile(this.markdown),
+      content: this.renderedContent.element.nativeElement.innerHTML,
       markDownContent: this.markdown,
       title: this.title,
       publicationDate: this.date,

@@ -31,7 +31,7 @@ import { environment } from '../environments/environment';
     SharedModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     CommonModule,
-    PrebootModule.withConfig({ appRoot: 'app-root', replay: false }),
+    PrebootModule.withConfig({ appRoot: 'app-root' }),
     DisqusModule.forRoot('blog-ovent'),
     BrowserModule.withServerTransition({ appId: 'my-app-idds' }),
     HttpClientModule,
