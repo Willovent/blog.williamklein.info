@@ -67,7 +67,7 @@
       <mat-card-subtitle>{{date| moment:'dddd DD MMMM YYYY'}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <markdown *ngIf="!isServer" [data]="markdown"></markdown>
+      <markdown *ngIf="!isServer" [data]="markdown" #renderedContent></markdown>
     </mat-card-content>
   </mat-card>
 </div>

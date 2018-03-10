@@ -42,10 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
     @Inject(PLATFORM_ID) private platformId: Object,
     private appRef: ApplicationRef,
     private replayer: EventReplayer
-  ) {
-    this.request = this.injector.get(REQUEST);
-    console.log(this.request);
-  }
+  ) { }
 
   ngOnInit() {
     this._changeTitleOnNavigation();

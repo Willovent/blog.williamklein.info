@@ -56,6 +56,7 @@ namespace Blog.Web.Controllers
 
       ViewData["SpaHtml"] = prerenderResult.Html;
       ViewData["Title"] = prerenderResult.Globals["title"];
+      ViewData["Scripts"] = prerenderResult.Globals["scripts"];
       ViewData["Styles"] = prerenderResult.Globals["styles"];
       ViewData["Meta"] = prerenderResult.Globals["meta"];
       ViewData["Links"] = prerenderResult.Globals["links"];
