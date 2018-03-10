@@ -28,11 +28,11 @@ namespace Blog.Web.Controllers
     }
 
 
-    [HttpGet]
-    [Route("flush-cache/{key}")]
-    public async Task<IActionResult> AddPost(string key, [FromServices] IMemoryCache cache)
+    [HttpPost]
+    [Route("flush-cache")]
+    public IActionResult FlushCache([FromBody] string key, [FromServices] IMemoryCache cache)
     {
-      cache.Remove(Uri.UnescapeDataString(key));
+      cache.Remove(key);
       return Ok();
     }
 

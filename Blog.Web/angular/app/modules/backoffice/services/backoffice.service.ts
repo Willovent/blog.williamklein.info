@@ -30,6 +30,7 @@ export class BackOfficeService {
   }
 
   flushCache(key): Observable<void> {
-    return this.http.get<void>(`${environment.apiUrl}/backoffice/flush-cache/${key}`);
+    return this.http.post<void>(`${environment.apiUrl}/backoffice/flush-cache/`, `"${key}"`,
+      { headers: { 'Content-Type': 'application/json' }});
   }
 }

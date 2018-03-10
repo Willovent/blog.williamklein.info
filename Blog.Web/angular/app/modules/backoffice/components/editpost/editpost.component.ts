@@ -65,6 +65,6 @@ export class EditPostComponent implements OnInit {
   }
 
   flushCacheForKey() {
-    this.backOfficeService.flushCache(encodeURIComponent(this.flushKey)).subscribe(() => this.flushKey = '');
+    this.backOfficeService.flushCache(this.flushKey).subscribe(() => this.flushKey = '');
   }
 }
