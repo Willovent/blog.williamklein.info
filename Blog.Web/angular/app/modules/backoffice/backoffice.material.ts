@@ -8,7 +8,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatAutocompleteModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 export const materialModule = [
@@ -21,4 +22,5 @@ export const materialModule = [
   MatDatepickerModule,
   MatNativeDateModule,
   MatAutocompleteModule,
-  MatSlideToggleModule];
+  MatSlideToggleModule,
+  MatSnackBarModule];

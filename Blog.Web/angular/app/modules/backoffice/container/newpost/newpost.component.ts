@@ -19,7 +19,7 @@ export class NewPostComponent implements OnInit {
 
   submit(post: Post) {
     this.backOfficeService.addPost(post).subscribe(() => {
-      this.router.navigateByUrl('/back');
+      this.router.navigate(['/back/edit/', post.category.code, post.url]);
     });
   }
 }

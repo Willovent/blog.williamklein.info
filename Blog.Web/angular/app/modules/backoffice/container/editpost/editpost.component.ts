@@ -1,9 +1,8 @@
-import { PLATFORM_ID, EventEmitter, Output, Input } from '@angular/core';
-import { Component, OnInit, Inject } from '@angular/core';
-import * as slug from 'slug';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { BackOfficeService } from '../../services/backoffice.service';
 import { Post } from '@bw/models';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-editpostcontainer',
@@ -12,19 +11,20 @@ import { Post } from '@bw/models';
 })
 export class EditPostComponent implements OnInit {
   post: Post;
-  constructor(private route: ActivatedRoute, private router: Router, private backOfficeService: BackOfficeService) { }
+  constructor(private route: ActivatedRoute, private backOfficeService: BackOfficeService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.backOfficeService.getPost(params['categoryCode'], params['postUrl']).subscribe(post => {
-        this.post = post;
-      });
+      this.backOfficeService.getPost(params['categoryCode'], params['postUrl'])
+        .subscribe(post => {
+          this.post = post;
+        });
     });
   }
 
   submit(post: Post) {
     this.backOfficeService.editPost(post).subscribe(() => {
-      this.router.navigateByUrl('/back');
+      this.snackBar.open('Saved');
     });
   }
 }
