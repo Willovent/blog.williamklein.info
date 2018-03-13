@@ -36,7 +36,7 @@ namespace Blog.Domain.Queries
 
             if (!this.withUnPublish)
             {
-                query.PublishedOnly();
+                query = query.PublishedOnly();
             }
 
             if (!string.IsNullOrEmpty(this.categoryCode))

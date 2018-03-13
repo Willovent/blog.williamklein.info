@@ -23,8 +23,8 @@ namespace Blog.Web.Controllers
       this.queryCommandBuilder = queryCommandBuilder;
     }
 
-    [Route("category/{categoryCode}", Name = "PostsListForCategory")]
-    [Route("", Name = "PostsList")]
+    [Route("category/{categoryCode}")]
+    [Route("")]
     [HttpGet]
     public async Task<IActionResult> List(string categoryCode = null, int page = 1)
     {

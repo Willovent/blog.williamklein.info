@@ -54,7 +54,7 @@
   <mat-icon aria-label="">check</mat-icon>
 </button>
 <div class="editors">
-  <textarea cols="100" [(ngModel)]="markdown"></textarea>
+  <textarea (keydown.control.s)="$event.preventDefault();submit();" cols="100" [(ngModel)]="markdown"></textarea>
   <mat-card>
     <div *ngIf="showHeader" mat-card-image [style.background-image]="'url('+category?.imageUrl+')'" alt="Photo of a Shiba Inu">
       <h1>

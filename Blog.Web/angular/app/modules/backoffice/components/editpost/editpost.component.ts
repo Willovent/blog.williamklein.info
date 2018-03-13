@@ -54,6 +54,7 @@ export class EditPostComponent implements OnInit {
     const post: Post = {
       id: this.id,
       categoryId: this.category.id,
+      category: this.category,
       description: this.description,
       content: this.renderedContent.element.nativeElement.innerHTML,
       markDownContent: this.markdown,
