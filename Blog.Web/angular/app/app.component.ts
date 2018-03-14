@@ -1,23 +1,12 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  Inject,
-  ViewEncapsulation,
-  RendererFactory2,
-  PLATFORM_ID,
-  Injector,
-  ApplicationRef
-} from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute, PRIMARY_OUTLET } from '@angular/router';
-import { Meta, Title, DOCUMENT, MetaDefinition } from '@angular/platform-browser';
+import { Component, ViewEncapsulation, OnDestroy, OnInit, PLATFORM_ID, Inject, ApplicationRef } from '@angular/core';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformServer, isPlatformBrowser } from '@angular/common';
-import { REQUEST } from '@nguniversal/aspnetcore-engine';
 import { routerTransition } from './app.router.transitions';
-import { EventReplayer } from 'preboot';
-import { AutService } from '@bw/services';
 import { Subscription } from 'rxjs/Subscription';
-import './models';
+import { map, filter, take, mergeMap } from 'rxjs/operators';
+import { EventReplayer } from 'preboot';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -37,8 +26,6 @@ export class AppComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private title: Title,
     private meta: Meta,
-    private injector: Injector,
-    private autService: AutService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private appRef: ApplicationRef,
     private replayer: EventReplayer
@@ -53,8 +40,10 @@ export class AppComponent implements OnInit, OnDestroy {
       this.router.initialNavigation();
       if (isPlatformBrowser(this.platformId)) {
         this.appRef.isStable
-          .filter(stable => stable)
-          .take(1)
+          .pipe(
+            filter(stable => stable),
+            take(1)
+          )
           .subscribe(() => {
             this.replayer.replayAll();
           });
@@ -72,16 +61,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private _changeTitleOnNavigation() {
     this.routerSub$ = this.router.events
-      .filter(event => event instanceof NavigationEnd)
-      .map(() => this.activatedRoute)
-      .map(route => {
-        while (route.firstChild) {
-          route = route.firstChild;
-        }
-        return route;
-      })
-      .filter(route => route.outlet === 'primary')
-      .mergeMap(route => route.data)
+      .pipe(
+        filter(event => event instanceof NavigationEnd),
+        map(() => this.activatedRoute),
+        map(route => {
+          while (route.firstChild) {
+            route = route.firstChild;
+          }
+          return route;
+        }),
+        filter(route => route.outlet === 'primary'),
+        mergeMap(route => route.data)
+      )
       .subscribe(event => {
         this._setMetaAndLinks(event);
       });

@@ -7,7 +7,7 @@ import { AppModuleShared } from './app.module';
 import { AppComponent } from './app.component';
 import { BrowserTransferStateModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AutService } from './services/aut.service';
+import { AuthService } from '@bw/services';
 
 export function getOriginUrl() {
   return window.location.origin;
@@ -17,7 +17,7 @@ export function getRequest() {
   return { cookie: document.cookie };
 }
 
-export function handleToken(autService: AutService) {
+export function handleToken(autService: AuthService) {
   return () => autService.handleAuthentication();
 }
 
@@ -32,7 +32,7 @@ export function handleToken(autService: AutService) {
       provide: ORIGIN_URL,
       useFactory: getOriginUrl
     },
-    { provide: APP_INITIALIZER, useFactory: handleToken, deps: [AutService], multi: true },
+    { provide: APP_INITIALIZER, useFactory: handleToken, deps: [AuthService], multi: true },
     {
       provide: REQUEST,
       useFactory: getRequest

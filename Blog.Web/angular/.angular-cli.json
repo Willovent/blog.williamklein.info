@@ -39,7 +39,9 @@
       "index": "index.html",
       "main": "boot.server.ts",
       "tsconfig": "tsconfig.server.json",
-      "styles": [],
+      "styles": [
+        "styles.scss"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

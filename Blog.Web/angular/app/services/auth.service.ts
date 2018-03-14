@@ -7,7 +7,7 @@ import { ORIGIN_URL } from '@nguniversal/aspnetcore-engine';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class AutService {
+export class AuthService {
 
   auth0: auth0.WebAuth;
 

@@ -2,7 +2,7 @@ import { PLATFORM_ID } from '@angular/core';
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
-import { AutService } from '@bw/services';
+import { AuthService } from '@bw/services';
 
 @Component({
   selector: 'app-backoffice',
@@ -12,7 +12,7 @@ import { AutService } from '@bw/services';
 export class BackofficeComponent implements OnInit {
   constructor(
     private http: HttpClient,
-    private autService: AutService,
+    private autService: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
