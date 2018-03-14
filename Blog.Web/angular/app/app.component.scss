@@ -48,5 +48,27 @@ html {
             background: url("https://avatars2.githubusercontent.com/u/10477902");
             background-size: cover;
         }
+        app-post {
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+            pre[class*=language-] {
+                margin: 0 -24px;
+                border-radius: 0;
+                @media (max-width: 600px) {
+                    margin: 0 -16px;
+                }
+            }
+            .category {
+                position: relative;
+            }
+
+            .mat-fab {
+                position: absolute;
+                bottom: -28px;
+                right: 24px;
+            }
+        }
     }
 }

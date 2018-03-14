@@ -31,7 +31,7 @@ import { AutInterceptor, RelativeUrlInterceptor } from './interceptor';
     CommonModule,
     PrebootModule.withConfig({ appRoot: 'app-root' }),
     DisqusModule.forRoot('blog-ovent'),
-    BrowserModule.withServerTransition({ appId: 'my-app-idds' }),
+    BrowserModule.withServerTransition({ appId: 'blog-app-id' }),
     HttpClientModule,
     TransferHttpCacheModule,
     FormsModule,

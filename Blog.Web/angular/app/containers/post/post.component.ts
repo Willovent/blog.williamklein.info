@@ -3,10 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { Title } from '@angular/platform-browser';
 import { isPlatformBrowser } from '@angular/common';
-import * as Prism from 'prismjs';
-import 'prismjs/components/prism-csharp';
-import 'prismjs/components/prism-json';
-import 'prismjs/components/prism-typescript';
 import { EventReplayer } from 'preboot';
 import { environment } from '../../../environments/environment.prod';
 import { BlogService } from '@bw/services';
@@ -41,16 +37,7 @@ export class PostComponent implements OnInit {
           this.identifier += '-dev';
         }
         this.title.setTitle(this.post.title + ' - Blog de William Klein');
-        if (isPlatformBrowser(this.platformId)) {
-          setTimeout(() => {
-            Prism.highlightAll();
-          });
-        }
       });
     });
-  }
-
-  back() {
-    // this.router.navigate(['home']);
   }
 }
