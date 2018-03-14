@@ -10,12 +10,13 @@
             margin: 0 -16px;
         }
     }
-    [mat-card-image] {
+    .category {
         position: relative;
-        a {
-            position: absolute;
-            bottom: -28px;
-            right: 24px;
-        }
+    }
+
+    .mat-fab {
+        position: absolute;
+        bottom: -28px;
+        right: 24px;
     }
 }

@@ -4,8 +4,10 @@ import { Meta, Title } from '@angular/platform-browser';
 import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 import { routerTransition } from './app.router.transitions';
 import { Subscription } from 'rxjs/Subscription';
-import { map, filter, take, mergeMap } from 'rxjs/operators';
+import { map, filter, take, mergeMap, tap } from 'rxjs/operators';
 import { EventReplayer } from 'preboot';
+
+declare var ga;
 
 @Component({
   selector: 'app-root',
@@ -63,6 +65,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this.routerSub$ = this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
+        tap((event: NavigationEnd) => {
+          typeof (ga) !== 'undefined' ? ga('send', 'pageview', event.urlAfterRedirects) : null
+        }),
         map(() => this.activatedRoute),
         map(route => {
           while (route.firstChild) {

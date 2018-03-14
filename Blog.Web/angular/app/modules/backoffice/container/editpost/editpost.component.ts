@@ -24,9 +24,7 @@ export class EditPostComponent implements OnInit {
 
   submit(post: Post) {
     this.backOfficeService.editPost(post).subscribe(() => {
-      this.snackBar.open('Saved', null, {
-        duration: 1000,
-      });
+      this.snackBar.open('Saved', null, { duration: 1000, });
     });
   }
 }
