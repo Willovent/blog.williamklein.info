@@ -75,7 +75,7 @@ namespace Blog.Web.Controllers
       stringBuilder.AppendLine("user-agent: *");
       stringBuilder.AppendLine("allow: /");
       stringBuilder.Append("sitemap: ");
-      stringBuilder.AppendLine(Url.Action("SitemapXml", "Seo", null, Request.Scheme).TrimEnd('/'));
+      stringBuilder.AppendLine( $"{Request.Scheme}://{Request.Host}/sitemap.xml");
 
       return Content(stringBuilder.ToString(), "text/plain", Encoding.UTF8);
     }

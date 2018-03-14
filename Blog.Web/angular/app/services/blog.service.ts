@@ -53,7 +53,7 @@ export class BlogService {
   }
 
   private addImageMeta(meta: Meta, post: Post) {
-    let url = this.getPostImage(post);
+    const url = this.getPostImage(post);
     meta.addTag({ name: 'og:image', content: url });
     meta.addTag({ name: 'og:image:secure_url', content: url });
     meta.addTag({ name: 'twitter:image', content: url });
@@ -61,7 +61,7 @@ export class BlogService {
   }
 
   private getPostImage(post: Post) {
-    let result = /<img.*?src="(.*?)"/.exec(post.content);
+    const result = /<img.*?src="(.*?)"/.exec(post.content);
     return result ? result[1] : post.category.imageUrl;
   }
 }
