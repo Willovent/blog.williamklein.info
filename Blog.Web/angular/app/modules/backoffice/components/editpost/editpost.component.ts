@@ -3,6 +3,10 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MarkdownComponent } from 'ngx-markdown';
 import { BackOfficeService } from '../../services/backoffice.service';
 import * as slug from 'slug';
+import 'prismjs';
+import 'prismjs/components/prism-csharp';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-typescript';
 import { Post, Category } from '@bw/models';
 import { isPlatformServer } from '@angular/common';
 
