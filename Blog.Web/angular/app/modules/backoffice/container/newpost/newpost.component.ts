@@ -1,6 +1,4 @@
-import { PLATFORM_ID, EventEmitter, Output, Input } from '@angular/core';
-import { Component, OnInit, Inject } from '@angular/core';
-import * as slug from 'slug';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BackOfficeService } from '../../services/backoffice.service';
 import { Post } from '@bw/models';

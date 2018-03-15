@@ -6,7 +6,6 @@ using Blog.Domain;
 using Blog.Domain.Command;
 using Blog.Domain.Queries;
 using Blog.Web.Models;
-using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

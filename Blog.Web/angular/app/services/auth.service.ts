@@ -11,7 +11,7 @@ export class AuthService {
 
   auth0: auth0.WebAuth;
 
-  constructor(private storageService: StorageService, @Inject(ORIGIN_URL) private origin) {
+  constructor(private storageService: StorageService, @Inject(ORIGIN_URL) origin) {
     this.auth0 = new auth0.WebAuth({
       clientID: environment.authConfig.clientID,
       domain: environment.authConfig.domain,

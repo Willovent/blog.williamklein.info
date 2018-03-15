@@ -1,9 +1,7 @@
-import { Component, OnInit, Optional, Inject, PLATFORM_ID } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Meta } from '@angular/platform-browser';
 import { Title } from '@angular/platform-browser';
-import { isPlatformBrowser } from '@angular/common';
-import { EventReplayer } from 'preboot';
 import { environment } from '../../../environments/environment.prod';
 import { BlogService } from '@bw/services';
 import { Post } from '@bw/models';
@@ -19,12 +17,10 @@ export class PostComponent implements OnInit {
 
   constructor
     (
-    private router: Router,
     private route: ActivatedRoute,
     private blogService: BlogService,
     private meta: Meta,
-    private title: Title,
-    @Inject(PLATFORM_ID) private platformId
+    private title: Title
     ) { }
 
   ngOnInit() {

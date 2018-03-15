@@ -1,4 +1,4 @@
-import { PLATFORM_ID, EventEmitter, Output, Input, ViewChild, ComponentRef } from '@angular/core';
+import { PLATFORM_ID, EventEmitter, Output, Input, ViewChild } from '@angular/core';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MarkdownComponent } from 'ngx-markdown';
 import { BackOfficeService } from '../../services/backoffice.service';

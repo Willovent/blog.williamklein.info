@@ -3,7 +3,7 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { routerTransition } from './app.router.transitions';
 import { Subscription } from 'rxjs/Subscription';
-import { map, filter, take, mergeMap, tap } from 'rxjs/operators';
+import { map, filter, mergeMap, tap } from 'rxjs/operators';
 
 declare var ga;
 
@@ -18,7 +18,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private endPageTitle = 'Blog de William Klein';
   private defaultPageTitle = 'Blog de William Klein';
   private routerSub$: Subscription;
-  private request;
 
   constructor(
     private router: Router,

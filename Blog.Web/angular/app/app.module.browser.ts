@@ -1,12 +1,8 @@
 ﻿import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { APP_BASE_HREF } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ORIGIN_URL, REQUEST } from '@nguniversal/aspnetcore-engine';
 import { AppModuleShared } from './app.module';
 import { AppComponent } from './app.component';
-import { BrowserTransferStateModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from '@bw/services';
 
 export function getOriginUrl() {

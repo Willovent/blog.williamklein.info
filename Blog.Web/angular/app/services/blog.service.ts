@@ -10,7 +10,7 @@ export class BlogService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts(page?: number): Observable<PostList> {
+  getPosts(_page?: number): Observable<PostList> {
     return this.http.get<PostList>(`${environment.apiUrl}/blog`);
   }
 

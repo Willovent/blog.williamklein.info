@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieAttributes, getJSON, remove, set } from 'js-cookie';
-import { NgModule, Inject, PLATFORM_ID } from '@angular/core';
+import { Inject, PLATFORM_ID } from '@angular/core';
 import { REQUEST } from '@nguniversal/aspnetcore-engine';
 import { isPlatformBrowser } from '@angular/common';
 

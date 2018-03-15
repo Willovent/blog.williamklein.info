@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
 import { Post } from '@bw/models';
 
 @Component({
@@ -12,7 +11,7 @@ export class PostPreviewComponent implements OnInit {
   @Input()
   post: Post;
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit() {
   }
