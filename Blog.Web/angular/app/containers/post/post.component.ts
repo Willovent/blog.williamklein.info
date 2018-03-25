@@ -15,13 +15,12 @@ export class PostComponent implements OnInit {
   post: Post;
   identifier: string;
 
-  constructor
-    (
+  constructor(
     private route: ActivatedRoute,
     private blogService: BlogService,
     private meta: Meta,
     private title: Title
-    ) { }
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {

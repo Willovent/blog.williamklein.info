@@ -9,11 +9,9 @@ import { Post } from '@bw/models';
   styleUrls: ['./newpost.component.scss']
 })
 export class NewPostComponent implements OnInit {
+  constructor(private router: Router, private backOfficeService: BackOfficeService) {}
 
-  constructor(private router: Router, private backOfficeService: BackOfficeService) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   submit(post: Post) {
     const categ = post.category;

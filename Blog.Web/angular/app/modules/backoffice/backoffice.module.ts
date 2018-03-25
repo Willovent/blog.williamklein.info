@@ -21,15 +21,7 @@ import { EditPostComponent as EditPostContainer } from './container/editpost/edi
     MarkdownModule.forRoot(), // forRoot dans un lazy load car utilisé que ici
     ...materialModule
   ],
-  declarations: [
-    BackofficeComponent,
-    PostListComponent,
-    EditPostComponent,
-    NewPostComponent,
-    EditPostContainer
-  ],
-  providers: [
-    BackOfficeService
-  ]
+  declarations: [BackofficeComponent, PostListComponent, EditPostComponent, NewPostComponent, EditPostContainer],
+  providers: [BackOfficeService]
 })
-export class BackOfficeModule { }
+export class BackOfficeModule {}

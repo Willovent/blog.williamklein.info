@@ -28,11 +28,9 @@ export class EditPostComponent implements OnInit {
   showHeader = false;
   flushKey: string;
 
-  @Output()
-  changed = new EventEmitter<Post>();
+  @Output() changed = new EventEmitter<Post>();
 
-  @Input()
-  post?: Post;
+  @Input() post?: Post;
 
   @ViewChild(MarkdownComponent) renderedContent: MarkdownComponent;
 
@@ -70,6 +68,6 @@ export class EditPostComponent implements OnInit {
   }
 
   flushCacheForKey() {
-    this.backOfficeService.flushCache(this.flushKey).subscribe(() => this.flushKey = '');
+    this.backOfficeService.flushCache(this.flushKey).subscribe(() => (this.flushKey = ''));
   }
 }

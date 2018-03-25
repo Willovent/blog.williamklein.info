@@ -7,8 +7,11 @@ const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
 
 @Injectable()
 export class RelativeUrlInterceptor implements HttpInterceptor {
-
-  constructor(@Optional() @Inject(ORIGIN_URL) private originUrl: any) { }
+  constructor(
+    @Optional()
+    @Inject(ORIGIN_URL)
+    private originUrl: any
+  ) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let url = request.url;

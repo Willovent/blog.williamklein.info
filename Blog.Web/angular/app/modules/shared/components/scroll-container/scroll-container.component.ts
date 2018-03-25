@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './scroll-container.component.html',
   styleUrls: ['./scroll-container.component.scss']
 })
-export class ScrollContainerComponent { }
+export class ScrollContainerComponent {}

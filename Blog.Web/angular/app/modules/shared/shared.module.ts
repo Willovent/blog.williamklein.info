@@ -7,22 +7,8 @@ import { RouterModule } from '@angular/router';
 import { BackGroundImageDirective } from './directive/background-image.directive';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    ...materialModule
-  ],
-  declarations: [
-    MomentPipe,
-    PostPreviewComponent,
-    BackGroundImageDirective,
-    ScrollContainerComponent
-  ],
-  exports: [
-    MomentPipe,
-    PostPreviewComponent,
-    ScrollContainerComponent,
-    BackGroundImageDirective
-  ]
+  imports: [CommonModule, RouterModule, ...materialModule],
+  declarations: [MomentPipe, PostPreviewComponent, BackGroundImageDirective, ScrollContainerComponent],
+  exports: [MomentPipe, PostPreviewComponent, ScrollContainerComponent, BackGroundImageDirective]
 })
-export class SharedModule { }
+export class SharedModule {}

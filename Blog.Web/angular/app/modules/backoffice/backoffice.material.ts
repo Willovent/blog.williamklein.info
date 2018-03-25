@@ -23,4 +23,5 @@ export const materialModule = [
   MatNativeDateModule,
   MatAutocompleteModule,
   MatSlideToggleModule,
-  MatSnackBarModule];
+  MatSnackBarModule
+];

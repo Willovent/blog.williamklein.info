@@ -8,12 +8,6 @@ import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader'
 
 @NgModule({
   bootstrap: [AppComponent],
-  imports: [
-    NoopAnimationsModule,
-    AppModuleShared,
-    ServerModule,
-    ServerTransferStateModule,
-    ModuleMapLoaderModule
-  ]
+  imports: [NoopAnimationsModule, AppModuleShared, ServerModule, ServerTransferStateModule, ModuleMapLoaderModule]
 })
-export class AppModule { }
+export class AppModule {}

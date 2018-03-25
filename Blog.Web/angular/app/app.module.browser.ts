@@ -19,10 +19,7 @@ export function handleToken(autService: AuthService) {
 
 @NgModule({
   bootstrap: [AppComponent],
-  imports: [
-    BrowserAnimationsModule,
-    AppModuleShared
-  ],
+  imports: [BrowserAnimationsModule, AppModuleShared],
   providers: [
     {
       provide: ORIGIN_URL,
@@ -35,4 +32,4 @@ export function handleToken(autService: AuthService) {
     }
   ]
 })
-export class AppModule { }
+export class AppModule {}

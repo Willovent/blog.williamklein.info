@@ -1,4 +1,4 @@
-import { Category } from "@bw/models";
+import { Category } from '@bw/models';
 
 export interface Post {
   id?: number;

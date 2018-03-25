@@ -6,9 +6,7 @@ import { isPlatformBrowser } from '@angular/common';
 
 @Injectable()
 export class StorageService {
-
-  constructor(@Inject(PLATFORM_ID) private platformId, @Inject(REQUEST) private req: any) {
-  }
+  constructor(@Inject(PLATFORM_ID) private platformId, @Inject(REQUEST) private req: any) {}
 
   getItem(name: string) {
     if (isPlatformBrowser(this.platformId)) {

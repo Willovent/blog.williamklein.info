@@ -19,15 +19,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private defaultPageTitle = 'Blog de William Klein';
   private routerSub$: Subscription;
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private title: Title,
-  ) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private title: Title) {}
 
   ngOnInit() {
     this.changeTitleOnNavigation();
-    this.router.events.subscribe((evt) => {
+    this.router.events.subscribe(evt => {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
@@ -48,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(
         filter(event => event instanceof NavigationEnd),
         tap((event: NavigationEnd) => {
-          typeof (ga) !== 'undefined' ? ga('send', 'pageview', event.urlAfterRedirects) : null;
+          typeof ga !== 'undefined' ? ga('send', 'pageview', event.urlAfterRedirects) : null;
         }),
         map(() => this.activatedRoute),
         map(route => {

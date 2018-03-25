@@ -18,13 +18,7 @@ import { environment } from '../environments/environment';
 import { AutInterceptor, RelativeUrlInterceptor } from './interceptor';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    NotFoundComponent,
-    PostComponent,
-    HeaderComponent
-  ],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, PostComponent, HeaderComponent],
   imports: [
     SharedModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
@@ -47,4 +41,4 @@ import { AutInterceptor, RelativeUrlInterceptor } from './interceptor';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModuleShared { }
+export class AppModuleShared {}

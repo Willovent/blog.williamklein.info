@@ -7,12 +7,9 @@ import { Post } from '@bw/models';
   styleUrls: ['./post-preview.component.scss']
 })
 export class PostPreviewComponent implements OnInit {
+  @Input() post: Post;
 
-  @Input()
-  post: Post;
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

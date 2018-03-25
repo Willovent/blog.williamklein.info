@@ -13,10 +13,7 @@ export class HomeComponent implements OnInit {
   currentIndex: number;
   posts: Post[];
 
-  constructor(
-    private blogService: BlogService,
-    private router: Router
-  ) { }
+  constructor(private blogService: BlogService, private router: Router) {}
 
   ngOnInit() {
     this.blogService.getPosts().subscribe(x => {
@@ -29,5 +26,4 @@ export class HomeComponent implements OnInit {
   goToPost(post: Post) {
     this.router.navigate(['/posts/', post.category.code, post.url]);
   }
-
 }

@@ -11,20 +11,23 @@ import { MatSnackBar } from '@angular/material';
 })
 export class EditPostComponent implements OnInit {
   post: Post;
-  constructor(private route: ActivatedRoute, private backOfficeService: BackOfficeService, private snackBar: MatSnackBar) { }
+  constructor(
+    private route: ActivatedRoute,
+    private backOfficeService: BackOfficeService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.backOfficeService.getPost(params['categoryCode'], params['postUrl'])
-        .subscribe(post => {
-          this.post = post;
-        });
+      this.backOfficeService.getPost(params['categoryCode'], params['postUrl']).subscribe(post => {
+        this.post = post;
+      });
     });
   }
 
   submit(post: Post) {
     this.backOfficeService.editPost(post).subscribe(() => {
-      this.snackBar.open('Saved', null, { duration: 1000, });
+      this.snackBar.open('Saved', null, { duration: 1000 });
     });
   }
 }

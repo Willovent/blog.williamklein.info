@@ -7,10 +7,12 @@ import { EditPostComponent } from './container/editpost/editpost.component';
 
 const routes: Routes = [
   {
-    path: '', component: BackofficeComponent, children: [
+    path: '',
+    component: BackofficeComponent,
+    children: [
       { path: '', component: NewPostComponent },
       { path: 'list', component: PostListComponent },
-      { path: 'edit/:categoryCode/:postUrl', component: EditPostComponent },
+      { path: 'edit/:categoryCode/:postUrl', component: EditPostComponent }
     ]
   }
 ];

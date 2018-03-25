@@ -11,10 +11,10 @@ import { Post } from '@bw/models';
 export class PostListComponent implements OnInit {
   posts: Post[];
 
-  constructor(private router: Router, private backOfficeService: BackOfficeService) { }
+  constructor(private router: Router, private backOfficeService: BackOfficeService) {}
 
   ngOnInit() {
-    this.backOfficeService.getAllPosts().subscribe(posts => this.posts = posts);
+    this.backOfficeService.getAllPosts().subscribe(posts => (this.posts = posts));
   }
 
   goToPost(post: Post) {

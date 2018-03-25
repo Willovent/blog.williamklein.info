@@ -7,8 +7,7 @@ import { Meta } from '@angular/platform-browser';
 
 @Injectable()
 export class BlogService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getPosts(_page?: number): Observable<PostList> {
     return this.http.get<PostList>(`${environment.apiUrl}/blog`);
@@ -49,7 +48,6 @@ export class BlogService {
     post.tags.forEach(tag => meta.addTag({ name: 'article:tag', content: tag }));
     meta.addTag({ name: 'article:section', content: post.category.name });
     meta.addTag({ name: 'article:published_time', content: new Date(post.publicationDate).toISOString() });
-
   }
 
   private addImageMeta(meta: Meta, post: Post) {
@@ -57,7 +55,6 @@ export class BlogService {
     meta.addTag({ name: 'og:image', content: url });
     meta.addTag({ name: 'og:image:secure_url', content: url });
     meta.addTag({ name: 'twitter:image', content: url });
-
   }
 
   private getPostImage(post: Post) {

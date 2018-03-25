@@ -8,7 +8,6 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
-
   auth0: auth0.WebAuth;
 
   constructor(private storageService: StorageService, @Inject(ORIGIN_URL) origin) {
@@ -45,7 +44,7 @@ export class AuthService {
   }
 
   private setSession(authResult: AuthResult): void {
-    const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
+    const expiresAt = JSON.stringify(authResult.expiresIn * 1000 + new Date().getTime());
     this.storageService.setItem('access_token', authResult.accessToken, { path: `/back`, expires: 30 });
     this.storageService.setItem('id_token', authResult.idToken, { path: `/back`, expires: 1 });
     this.storageService.setItem('expires_at', expiresAt, { path: `/back`, expires: 1 });
@@ -73,7 +72,6 @@ export class AuthService {
         }
       });
     });
-
   }
 
   public get token(): string {

@@ -6,8 +6,7 @@ import { Post, Category } from '@bw/models';
 
 @Injectable()
 export class BackOfficeService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${environment.apiUrl}/backoffice/posts`);
@@ -30,7 +29,8 @@ export class BackOfficeService {
   }
 
   flushCache(key): Observable<void> {
-    return this.http.post<void>(`${environment.apiUrl}/backoffice/flush-cache/`, `"${key}"`,
-      { headers: { 'Content-Type': 'application/json' }});
+    return this.http.post<void>(`${environment.apiUrl}/backoffice/flush-cache/`, `"${key}"`, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }
