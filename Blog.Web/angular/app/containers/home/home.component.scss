@@ -1,5 +1,20 @@
 app-post-preview {
-  display: block;
-  margin: 20px auto;
-  max-width: 950px;
+    display: block;
+    margin: 20px auto;
+    max-width: 950px;
+}
+
+#show-more {
+    display: block;
+    margin: 20px auto;
+    max-width: 950px;
+    text-align: right;
+
+    span{
+      cursor: pointer;
+      font-family: Roboto,"Helvetica Neue",sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: rgba(0,0,0,.54);
+    }
 }
