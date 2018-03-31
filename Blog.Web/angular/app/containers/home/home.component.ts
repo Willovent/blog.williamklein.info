@@ -10,20 +10,26 @@ import { Post } from '@bw/models';
 })
 export class HomeComponent implements OnInit {
   pageCount: number;
-  currentIndex: number;
-  posts: Post[];
+  currentIndex = 0;
+  posts: Post[] = [];
+  hasMore: boolean;
 
-  constructor(private blogService: BlogService, private router: Router) {}
+  constructor(private blogService: BlogService, private router: Router) { }
 
   ngOnInit() {
-    this.blogService.getPosts().subscribe(x => {
-      this.posts = x.posts;
-      this.currentIndex = x.currentPageIndex;
-      this.pageCount = x.totalPageNumber;
-    });
+    this.nextPage();
   }
 
   goToPost(post: Post) {
     this.router.navigate(['/posts/', post.category.code, post.url]);
+  }
+
+  nextPage() {
+    this.blogService.getPosts(this.currentIndex + 1).subscribe(x => {
+      this.posts = this.posts.concat(x.posts);
+      this.currentIndex = x.currentPageIndex;
+      this.pageCount = x.totalPageNumber;
+      this.hasMore = this.currentIndex < this.pageCount;
+    });
   }
 }
