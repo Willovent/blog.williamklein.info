@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { environment } from '../../environments/environment';
 import { PostList, Post } from '@bw/models';
@@ -7,10 +7,15 @@ import { Meta } from '@angular/platform-browser';
 
 @Injectable()
 export class BlogService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getPosts(_page?: number): Observable<PostList> {
-    return this.http.get<PostList>(`${environment.apiUrl}/blog`);
+  getPosts(page?: number): Observable<PostList> {
+    let params = new HttpParams();
+    if (page) {
+      params = params.append('page', page.toString());
+    }
+
+    return this.http.get<PostList>(`${environment.apiUrl}/blog`, { params });
   }
 
   getPost(categoryCode, postUrl): Observable<Post> {
