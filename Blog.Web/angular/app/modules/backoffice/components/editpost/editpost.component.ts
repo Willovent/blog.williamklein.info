@@ -9,6 +9,8 @@ import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-typescript';
 import { Post, Category } from '@bw/models';
 import { isPlatformServer } from '@angular/common';
+import { MatChipInputEvent } from '@angular/material';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-editpost',
@@ -27,6 +29,8 @@ export class EditPostComponent implements OnInit {
   isServer: boolean;
   showHeader = false;
   flushKey: string;
+  tags: string[];
+  separatorKeysCodes = [ENTER, COMMA];
 
   @Output() changed = new EventEmitter<Post>();
 
@@ -48,6 +52,7 @@ export class EditPostComponent implements OnInit {
         this.category = this.post.category;
         this.title = this.post.title;
         this.description = this.post.description;
+        this.tags = this.post.tags;
       }
     });
   }
@@ -62,12 +67,30 @@ export class EditPostComponent implements OnInit {
       markDownContent: this.markdown,
       title: this.title,
       publicationDate: this.date,
-      url: slug(this.title)
+      url: slug(this.title),
+      tags: this.tags
     };
     this.changed.emit(post);
   }
 
   flushCacheForKey() {
     this.backOfficeService.flushCache(this.flushKey).subscribe(() => (this.flushKey = ''));
+  }
+  removeTag(tag: string) {
+    this.tags.splice(this.tags.indexOf(tag), 1);
+  }
+  addTag(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.tags.push(value);
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
   }
 }

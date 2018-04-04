@@ -9,7 +9,8 @@ import {
   MatNativeDateModule,
   MatAutocompleteModule,
   MatSlideToggleModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatChipsModule
 } from '@angular/material';
 
 export const materialModule = [
@@ -23,5 +24,6 @@ export const materialModule = [
   MatNativeDateModule,
   MatAutocompleteModule,
   MatSlideToggleModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatChipsModule
 ];
