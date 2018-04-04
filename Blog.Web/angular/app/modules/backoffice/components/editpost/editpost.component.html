@@ -41,7 +41,19 @@
       </mat-form-field>
     </td>
   </tr>
-  <tr >
+  <tr>
+    <td>
+      <mat-form-field class="demo-chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true" (remove)="removeTag(tag)">
+            {{tag}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="New tag..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+            (matChipInputTokenEnd)="addTag($event)" />
+        </mat-chip-list>
+      </mat-form-field>
+    </td>
     <td style="position:relative">
       <mat-form-field>
         <input type="text" matInput [(ngModel)]="flushKey" placeholder="Flush cache">
