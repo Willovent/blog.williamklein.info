@@ -76,19 +76,19 @@ export class EditPostComponent implements OnInit {
   flushCacheForKey() {
     this.backOfficeService.flushCache(this.flushKey).subscribe(() => (this.flushKey = ''));
   }
+
   removeTag(tag: string) {
     this.tags.splice(this.tags.indexOf(tag), 1);
   }
+
   addTag(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
     if ((value || '').trim()) {
       this.tags.push(value);
     }
 
-    // Reset the input value
     if (input) {
       input.value = '';
     }
