@@ -1,9 +1,9 @@
 import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { BackofficeComponent } from './backoffice.component';
+import { EditPostComponent } from './container/editpost/editpost.component';
 import { NewPostComponent } from './container/newpost/newpost.component';
 import { PostListComponent } from './container/postlist/postlist.component';
-import { EditPostComponent } from './container/editpost/editpost.component';
 
 const routes: Routes = [
   {

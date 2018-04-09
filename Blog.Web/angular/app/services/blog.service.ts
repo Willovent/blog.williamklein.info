@@ -36,7 +36,10 @@ export class BlogService {
     meta.addTag({ name: 'og:description', content: post.description });
     meta.addTag({ name: 'og:title', content: post.title });
     meta.addTag({ name: 'og:title', content: post.title });
-    meta.addTag({ name: 'og:url', content: `https://blog.williamklein.info/${post.category.code}/${post.url}` });
+    meta.addTag({
+      name: 'og:url',
+      content: `https://blog.williamklein.info/posts/${post.category.code.toLowerCase()}/${post.url.toLowerCase()}`
+    });
     meta.addTag({ name: 'og:site_name', content: 'Blog de William Klein' });
   }
 
