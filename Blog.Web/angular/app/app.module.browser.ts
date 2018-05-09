@@ -1,6 +1,6 @@
 ﻿import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ORIGIN_URL, REQUEST } from '@nguniversal/aspnetcore-engine';
+import { ORIGIN_URL, REQUEST } from '@nguniversal/aspnetcore-engine/tokens';
 import { AppModuleShared } from './app.module';
 import { AppComponent } from './app.component';
 import { AuthService } from '@bw/services';
