@@ -16,7 +16,7 @@
         <mat-card-title>William Klein</mat-card-title>
         <mat-card-subtitle>{{post.publicationDate | moment:'dddd DD MMMM YYYY'}}</mat-card-subtitle>
       </mat-card-header>
-      <mat-card-content [innerHTML]="post.content">
+      <mat-card-content [innerHTML]="post.content | safeHtml">
       </mat-card-content>
       <disqus [identifier]="identifier"></disqus>
     </mat-card>
