@@ -5,6 +5,7 @@
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
     <DefaultItemExcludes>angular\node_modules\**;$(DefaultItemExcludes)</DefaultItemExcludes>
+    <UserSecretsId>6007da5d-6da6-40c1-a82e-848499c5072f</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <!-- New Meta Package has SpaServices in It -->

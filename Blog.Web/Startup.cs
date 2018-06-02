@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,12 +10,7 @@ using Blog.Data;
 using Blog.Domain;
 using Blog.Domain.Queries;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using System.Collections.Generic;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Threading.Tasks;
 using Blog.Domain.Command;
 using Blog.Web.Sitemap;
 
@@ -30,19 +23,23 @@ namespace Blog.Web
       var builder = new ConfigurationBuilder()
           .SetBasePath(env.ContentRootPath)
           .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-          .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
           .AddEnvironmentVariables();
-      Configuration = builder.Build();
+
+      if (env.IsDevelopment())
+      {
+        builder.AddUserSecrets<Startup>();
+      }
+
+      configuration = builder.Build();
     }
 
-    public IConfigurationRoot Configuration { get; }
+    private IConfigurationRoot configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddAuthorization();
       services.AddEntityFrameworkSqlServer()
-            .AddDbContext<BlogContext>(options => options.UseSqlServer(Configuration["Data:BlogConnection:ConnectionString"]));
+            .AddDbContext<BlogContext>(options => options.UseSqlServer(configuration["Data:BlogConnection:ConnectionString"]));
       services.AddScoped<IBlogContext>(provider => provider.GetService<BlogContext>());
       services.AddScoped<QueryCommandBuilder>();
       services.AddScoped<GetCategoriesWithPostsNumberQuery>();
@@ -75,10 +72,9 @@ namespace Blog.Web
       });
     }
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
     {
-      loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+      loggerFactory.AddConsole(configuration.GetSection("Logging"));
       loggerFactory.AddDebug();
 
       app.UseStaticFiles();
@@ -98,10 +94,10 @@ namespace Blog.Web
         {
           builder.UseMvc(routes =>
           {
-      routes.MapSpaFallbackRoute(
-          name: "spa-fallback",
-          defaults: new { controller = "Home", action = "Index" });
-    });
+            routes.MapSpaFallbackRoute(
+                name: "spa-fallback",
+                defaults: new { controller = "Home", action = "Index" });
+          });
         });
       }
       else
