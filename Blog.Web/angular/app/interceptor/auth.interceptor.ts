@@ -1,6 +1,6 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { AuthService } from '@bw/services';
 import { isPlatformServer } from '@angular/common';
 import { mergeMap, catchError } from 'rxjs/operators';

@@ -5,10 +5,11 @@ import { PostPreviewComponent, ScrollContainerComponent } from '@bw/shared/compo
 import { materialModule } from './shared.module.material';
 import { RouterModule } from '@angular/router';
 import { BackGroundImageDirective } from './directive/background-image.directive';
+import { SafeHtmlPipe } from './pipe/safe-html.pipe';
 
 @NgModule({
   imports: [CommonModule, RouterModule, ...materialModule],
-  declarations: [MomentPipe, PostPreviewComponent, BackGroundImageDirective, ScrollContainerComponent],
-  exports: [MomentPipe, PostPreviewComponent, ScrollContainerComponent, BackGroundImageDirective]
+  declarations: [MomentPipe, PostPreviewComponent, BackGroundImageDirective, ScrollContainerComponent, SafeHtmlPipe],
+  exports: [MomentPipe, PostPreviewComponent, ScrollContainerComponent, BackGroundImageDirective, SafeHtmlPipe]
 })
 export class SharedModule {}

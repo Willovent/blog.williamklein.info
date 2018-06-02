@@ -1,7 +1,7 @@
 import { Injectable, Inject, Optional } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { ORIGIN_URL } from '@nguniversal/aspnetcore-engine';
+import { Observable } from 'rxjs';
+import { ORIGIN_URL } from '@nguniversal/aspnetcore-engine/tokens';
 
 const isAbsoluteUrl = /^[a-zA-Z\-\+.]+:\/\//;
 

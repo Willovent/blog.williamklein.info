@@ -2,7 +2,7 @@ import { Component, ViewEncapsulation, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { routerTransition } from './app.router.transitions';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { map, filter, mergeMap, tap } from 'rxjs/operators';
 
 declare var ga;

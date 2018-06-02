@@ -1,10 +1,9 @@
 import { Injectable, Inject } from '@angular/core';
 import * as auth0 from 'auth0-js';
-import { Observable } from 'rxjs/Observable';
-import { Observer } from 'rxjs/Observer';
+import { Observable ,  Observer } from 'rxjs';
 import { StorageService } from './storage.service';
-import { ORIGIN_URL } from '@nguniversal/aspnetcore-engine';
 import { environment } from '../../environments/environment';
+import { ORIGIN_URL } from '@nguniversal/aspnetcore-engine/tokens';
 
 @Injectable()
 export class AuthService {

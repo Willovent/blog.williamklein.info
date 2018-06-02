@@ -1,4 +1,4 @@
-const appServer = require('./dist-server/main.bundle');
+const appServer = require('./dist-server/main');
 const readFileSync = require('fs').readFileSync;
 const file = readFileSync('./wwwroot/index.html').toString();
 const createServerRenderer = require('aspnet-prerendering').createServerRenderer;
