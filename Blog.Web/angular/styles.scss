@@ -3,6 +3,9 @@
 mat-card {
   margin: 20px auto;
   max-width: 900px;
+  padding: 24px;
+  border-radius: 2px;
+  display: block;
   @media (max-width: 950px) {
       margin: 0 auto;
   }
@@ -27,4 +30,17 @@ mat-card {
           left: 15px;
       }
   }
+}
+
+.mat-card-image:first-child {
+    margin-top: -24px;
+}
+
+.mat-card-image {
+  width: #{calc(100% + 48px)};
+  margin: 0 -24px 16px -24px;
+}
+.mat-card-header {
+  display: flex;
+  flex-direction: row;
 }

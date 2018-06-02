@@ -41,4 +41,4 @@ import { AutInterceptor, RelativeUrlInterceptor } from './interceptor';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModuleShared {}
+export class AppModuleShared { }
