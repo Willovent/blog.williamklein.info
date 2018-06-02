@@ -43,7 +43,7 @@ namespace Blog.Web.Controllers
             "/", // baseURL
             nodeServices,
             token,
-            new JavaScriptModuleExport(applicationBasePath + "/angular/server"),
+            new JavaScriptModuleExport(applicationBasePath + "/angular/dist-server/server"),
             unencodedAbsoluteUrl,
             unencodedPathAndQuery,
             transferData,
