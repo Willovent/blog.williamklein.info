@@ -101,7 +101,17 @@
           "options": {
             "outputPath": "dist-server",
             "main": "boot.server.ts",
-            "tsConfig": "tsconfig.server.json"
+            "tsConfig": "tsconfig.server.json",
+          },
+          "configurations": {
+            "production":{
+              "fileReplacements": [
+                {
+                  "replace": "./environments/environment.ts",
+                  "with": "./environments/environment.prod.ts"
+                }
+              ]
+            }
           }
         }
       }

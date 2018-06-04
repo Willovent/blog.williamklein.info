@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "tslint -p tsconfig.json",
     "build": "npm run build:client && npm run build:server && npm run webpack:server",
-    "build:server": "ng run angular:server",
+    "build:server": "ng run angular:server:production",
     "build:client": "ng build --prod",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "clean": "rimraf wwwroot/dist clientapp/dist",
