@@ -66,8 +66,8 @@ export class EditPostComponent implements OnInit {
       content: this.renderedContent.element.nativeElement.innerHTML,
       markDownContent: this.markdown,
       title: this.title,
-      publicationDate: this.date,
-      url: slug(this.title),
+      publicationDate: new Date(Date.UTC(this.date.getFullYear(), this.date.getMonth(), this.date.getDate())),
+      url: slug(this.title.toLocaleLowerCase()),
       tags: this.tags
     };
     this.changed.emit(post);

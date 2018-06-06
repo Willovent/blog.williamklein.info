@@ -67,6 +67,7 @@ namespace Blog.Web.Controllers
     }
 
     [ResponseCache(Duration = 86400, Location = ResponseCacheLocation.Any)]
+    [HttpGet]
     [Route("robots.txt")]
     public ContentResult RobotsText()
     {
@@ -80,6 +81,7 @@ namespace Blog.Web.Controllers
       return Content(stringBuilder.ToString(), "text/plain", Encoding.UTF8);
     }
 
+    [HttpGet]
     [Route("sitemap.xml")]
     public async Task<IActionResult> SitemapXml([FromServices]SitemapBuilder sitemapBuilder, [FromServices] QueryCommandBuilder queryCommandBuilder)
     {
