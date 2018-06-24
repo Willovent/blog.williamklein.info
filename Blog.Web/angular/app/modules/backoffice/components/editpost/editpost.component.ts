@@ -48,11 +48,13 @@ export class EditPostComponent implements OnInit {
       if (this.post) {
         this.id = this.post.id;
         this.markdown = this.post.markDownContent;
-        this.date = this.post.publicationDate;
+        this.date = new Date(this.post.publicationDate);
         this.category = this.post.category;
         this.title = this.post.title;
         this.description = this.post.description;
         this.tags = this.post.tags;
+      } else {
+        this.tags = [];
       }
     });
   }
