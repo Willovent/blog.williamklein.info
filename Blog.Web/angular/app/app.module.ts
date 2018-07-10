@@ -16,6 +16,7 @@ import { materialModule } from './app.module.material';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AutInterceptor, RelativeUrlInterceptor } from './interceptor';
+import { ServerTransition } from './server-transition.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, PostComponent, HeaderComponent],
@@ -25,7 +26,8 @@ import { AutInterceptor, RelativeUrlInterceptor } from './interceptor';
     CommonModule,
     PrebootModule.withConfig({ appRoot: 'app-root' }),
     DisqusModule.forRoot('blog-ovent'),
-    BrowserModule.withServerTransition({ appId: 'blog-app-id' }),
+    ServerTransition.forRoot({ appId: 'bw-blog' }),
+    BrowserModule,
     HttpClientModule,
     TransferHttpCacheModule,
     FormsModule,
