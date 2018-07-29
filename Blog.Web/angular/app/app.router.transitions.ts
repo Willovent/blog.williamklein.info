@@ -5,16 +5,16 @@ const smoothTransition = [
     query(
       ':enter app-scroll-container',
       [
-        style({ transform: 'translate(10vh,20vw)', opacity: 0 }),
-        animate('.5s ease-in-out', style({ transform: 'translate(0,0)', opacity: 1 }))
+        style({  opacity: 0 }),
+        animate('.3s ease-in-out', style({ opacity: 1 }))
       ],
       { optional: true }
     ),
     query(
       ':leave app-scroll-container',
       [
-        style({ transform: 'translate(0,0)', opacity: 1 }),
-        animate('.5s ease-in-out', style({ transform: 'translate(10vh,20vw)', opacity: 0 }))
+        style({  opacity: 1, overflow: 'hidden' }),
+        animate('.3s ease-in-out', style({  transform: 'scale(0.95)', opacity: 0 }))
       ],
       { optional: true }
     )
