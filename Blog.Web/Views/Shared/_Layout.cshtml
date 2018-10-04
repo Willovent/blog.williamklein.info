@@ -22,16 +22,12 @@
     <link rel="apple-touch-icon" type="image/png" sizes="256x256" href="favicon-256.png">
     @Html.Raw(ViewData["Meta"])
     @Html.Raw(ViewData["Links"])
-    <!-- <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" /> -->
     @Html.Raw(ViewData["Styles"])
   </head>
   <body>
     @RenderBody()
-    <!-- Here we're passing down any data to be used by grabbed and parsed by Angular -->
     @Html.Raw(ViewData["TransferData"])
     @Html.Raw(ViewData["Scripts"])
-
     @RenderSection("scripts", required: false)
-
   </body>
 </html>

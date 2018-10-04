@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Blog.Domain;
+using Blog.Data;
 using Blog.Domain.Command;
 using Blog.Domain.Queries;
-using Blog.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.Threading.Tasks;
 
 namespace Blog.Web.Controllers
 {
@@ -19,13 +13,6 @@ namespace Blog.Web.Controllers
   [Authorize(Roles = "Blogger")]
   public class BackOfficeController : Controller
   {
-    private QueryCommandBuilder queryCommandBuilder;
-
-    public BackOfficeController(QueryCommandBuilder queryCommandBuilder)
-    {
-      this.queryCommandBuilder = queryCommandBuilder;
-    }
-
 
     [HttpPost]
     [Route("flush-cache")]
@@ -37,26 +24,26 @@ namespace Blog.Web.Controllers
 
     [HttpPost]
     [Route("")]
-    public async Task<IActionResult> AddPost([FromBody]Data.Post post, [FromServices] IMemoryCache cache)
+    public async Task<IActionResult> AddPost([FromBody]Post post, [FromServices] IMemoryCache cache, [FromServices] AddPostCommand command)
     {
       cache.Remove("/");
-      await this.queryCommandBuilder.Build<AddPostCommand>().ExecuteAsync(post);
+      await command.ExecuteAsync(post);
       return Ok();
     }
 
     [HttpPost]
     [Route("{postUrl}")]
-    public async Task<IActionResult> EditPost([FromBody]Data.Post post)
+    public async Task<IActionResult> EditPost([FromBody]Post post, [FromServices] EditPostCommand command)
     {
-      await this.queryCommandBuilder.Build<EditPostCommand>().ExecuteAsync(post);
+      await command.ExecuteAsync(post);
       return Ok();
     }
 
     [Route("{categoryCode}/{postUrl}", Order = 3)]
     [HttpGet]
-    public async Task<IActionResult> Post(string categoryCode, string postUrl)
+    public async Task<IActionResult> Post([FromServices] GetPostQuery query, string categoryCode, string postUrl)
     {
-      var post = await this.queryCommandBuilder.Build<GetPostQuery>().WithUnpublish().WithoutContent().ExecuteAsync(categoryCode, postUrl);
+      Post post = await query.WithUnpublish().WithoutContent().ExecuteAsync(categoryCode, postUrl);
       if (post == null)
       {
         return new NotFoundResult();
@@ -68,12 +55,9 @@ namespace Blog.Web.Controllers
     [Route("category/{categoryCode}")]
     [Route("posts")]
     [HttpGet]
-    public async Task<IActionResult> AllPosts(string categoryCode = null)
+    public async Task<IActionResult> AllPosts([FromServices] GetPostsQuery query, string categoryCode = null)
     {
-      var query = this.queryCommandBuilder.Build<GetPostsQuery>().ForCategory(categoryCode).WithUnpublish().Build();
-
-      var posts = await query.ToListAsync();
-
+      System.Collections.Generic.List<Post> posts = await query.ForCategory(categoryCode).WithUnpublish().Build().ToListAsync();
       return Json(posts);
     }
   }

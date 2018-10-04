@@ -1,67 +1,40 @@
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using Microsoft.AspNetCore.NodeServices;
-using Microsoft.AspNetCore.Http.Features;
-using Blog.Web.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SpaServices.Prerendering;
-using Microsoft.AspNetCore.Hosting;
-using System.Threading;
-using Microsoft.Extensions.Caching.Memory;
-using System.Text;
-using Blog.Web.Sitemap;
-using Blog.Domain;
 using Blog.Domain.Queries;
-using System.Linq;
+using Blog.Web.Models;
+using Blog.Web.Sitemap;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.Prerendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
+using System;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Blog.Web.Controllers
 {
   public class HomeController : Controller
   {
     [HttpGet]
-    public async Task<IActionResult> Index(
-      [FromServices]INodeServices nodeServices,
-      [FromServices] IHostingEnvironment hostEnv,
-      [FromServices] IMemoryCache cache,
-      CancellationToken token)
+    public async Task<IActionResult> Index([FromServices] ISpaPrerenderer prerenderer, [FromServices] IMemoryCache cache)
     {
-      var requestFeature = Request.HttpContext.Features.Get<IHttpRequestFeature>();
-      var unencodedPathAndQuery = requestFeature.RawTarget;
+      IHttpRequestFeature requestFeature = this.Request.HttpContext.Features.Get<IHttpRequestFeature>();
+      string unencodedPathAndQuery = requestFeature.RawTarget;
 
-      var prerenderResult = await cache.GetOrCreateAsync(unencodedPathAndQuery, entry =>
+      RenderToStringResult prerenderResult = await cache.GetOrCreateAsync(unencodedPathAndQuery, entry =>
       {
         entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(10);
         entry.SlidingExpiration = TimeSpan.FromDays(3);
-        var unencodedAbsoluteUrl = $"{Request.Scheme}://{Request.Host}{unencodedPathAndQuery}";
-        var applicationBasePath = hostEnv.ContentRootPath;
-
-        TransferData transferData = new TransferData();
-        transferData.request = AbstractHttpContextRequestInfo(Request); // You can automatically grab things from the REQUEST object in Angular because of this
-        return Prerenderer.RenderToString(
-            "/", // baseURL
-            nodeServices,
-            token,
-            new JavaScriptModuleExport(applicationBasePath + "/angular/dist-server/server"),
-            unencodedAbsoluteUrl,
-            unencodedPathAndQuery,
-            transferData,
-            30000, // timeout duration
-            Request.PathBase.ToString()
-        );
+        return prerenderer.RenderToString("angular/dist-server/server", customDataParameter: new { request = this.Request.AbstractHttpContextRequestInfo() });
       });
 
-
-
-      ViewData["SpaHtml"] = prerenderResult.Html;
-      ViewData["Title"] = prerenderResult.Globals["title"];
-      ViewData["Scripts"] = prerenderResult.Globals["scripts"];
-      ViewData["Styles"] = prerenderResult.Globals["styles"];
-      ViewData["Meta"] = prerenderResult.Globals["meta"];
-      ViewData["Links"] = prerenderResult.Globals["links"];
-      ViewData["TransferData"] = prerenderResult.Globals["transferData"]; // our transfer data set to window.TRANSFER_CACHE = {};
-
+      this.ViewData["SpaHtml"] = prerenderResult.Html;
+      this.ViewData["Title"] = prerenderResult.Globals["title"];
+      this.ViewData["Scripts"] = prerenderResult.Globals["scripts"];
+      this.ViewData["Styles"] = prerenderResult.Globals["styles"];
+      this.ViewData["Meta"] = prerenderResult.Globals["meta"];
+      this.ViewData["Links"] = prerenderResult.Globals["links"];
+      this.ViewData["TransferData"] = prerenderResult.Globals["transferData"];
 
       return View();
     }
@@ -76,33 +49,31 @@ namespace Blog.Web.Controllers
       stringBuilder.AppendLine("user-agent: *");
       stringBuilder.AppendLine("allow: /");
       stringBuilder.Append("sitemap: ");
-      stringBuilder.AppendLine( $"{Request.Scheme}://{Request.Host}/sitemap.xml");
+      stringBuilder.AppendLine($"{this.Request.Scheme}://{this.Request.Host}/sitemap.xml");
 
       return Content(stringBuilder.ToString(), "text/plain", Encoding.UTF8);
     }
 
     [HttpGet]
     [Route("sitemap.xml")]
-    public async Task<IActionResult> SitemapXml([FromServices]SitemapBuilder sitemapBuilder, [FromServices] QueryCommandBuilder queryCommandBuilder)
+    public async Task<IActionResult> SitemapXml([FromServices]SitemapBuilder sitemapBuilder, [FromServices] GetPostsQuery getPostsQuery)
     {
-      var now = DateTime.Now;
+      DateTime now = DateTime.Now;
 
-      // Fixed pages -> Home & Home blog
       sitemapBuilder.AddUrl(new SitemapNode
       {
-        Url = $"{Request.Scheme}://{Request.Host}",
+        Url = $"{this.Request.Scheme}://{this.Request.Host}",
         ChangeFrequency = ChangeFrequency.Always,
         Modified = now,
         Priority = 1
       });
 
-      // Posts pages
-      var posts = await queryCommandBuilder.Build<GetPostsQuery>().Build().Select(p => new { PostUrl = p.Url, CategoryCode = p.Category.Code, PublicationDate = p.PublicationDate }).ToListAsync();
+      var posts = await getPostsQuery.Build().Select(p => new { PostUrl = p.Url, CategoryCode = p.Category.Code, p.PublicationDate }).ToListAsync();
       foreach (var post in posts)
       {
         sitemapBuilder.AddUrl(new SitemapNode
         {
-          Url = $"{Request.Scheme}://{Request.Host}/posts/{post.CategoryCode}/{post.PostUrl}",
+          Url = $"{this.Request.Scheme}://{this.Request.Host}/posts/{post.CategoryCode}/{post.PostUrl}",
           Priority = 0.5,
           Modified = post.PublicationDate,
           ChangeFrequency = ChangeFrequency.Always
@@ -112,19 +83,6 @@ namespace Blog.Web.Controllers
       return Content(sitemapBuilder.ToString(), "application/xml", Encoding.UTF8);
     }
 
-    public IActionResult Error()
-    {
-      return View();
-    }
-    private IRequest AbstractHttpContextRequestInfo(HttpRequest request)
-    {
-
-      IRequest requestSimplified = new IRequest();
-      requestSimplified.cookies = request.Cookies;
-      requestSimplified.headers = request.Headers;
-      requestSimplified.host = request.Host;
-
-      return requestSimplified;
-    }
+    public IActionResult Error() => View();
   }
 }

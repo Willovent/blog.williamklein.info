@@ -1,42 +1,35 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using Blog.Data;
+using Blog.Domain.Filters;
 using Blog.Domain.Queries;
 using Blog.Web.Models;
-using Blog.Domain.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Blog.Domain;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
-using Blog.Domain.Command;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Blog.Web.Controllers
 {
   [Route("api/blog")]
   public class BlogController : Controller
   {
-    private QueryCommandBuilder queryCommandBuilder;
     private const int postsPerPage = 10;
-
-    public BlogController(QueryCommandBuilder queryCommandBuilder)
-    {
-      this.queryCommandBuilder = queryCommandBuilder;
-    }
 
     [Route("category/{categoryCode}")]
     [Route("")]
     [HttpGet]
-    public async Task<IActionResult> List(string categoryCode = null, int page = 1)
+    public async Task<IActionResult> List([FromServices] GetPostsQuery getPostQuery, string categoryCode = null, int page = 1)
     {
       if (page < 1)
       {
         page = 1;
       }
 
-      var query = this.queryCommandBuilder.Build<GetPostsQuery>().ForCategory(categoryCode).Build();
-      var pagesCount = Math.Ceiling((double)query.Count() / postsPerPage);
+      IQueryable<Post> query = getPostQuery.ForCategory(categoryCode).Build();
+      double pagesCount = Math.Ceiling((double)query.Count() / postsPerPage);
 
-      var posts = await query.Paginate((page - 1) * postsPerPage, postsPerPage).ToListAsync();
+      List<Data.Post> posts = await query.Paginate((page - 1) * postsPerPage, postsPerPage).ToListAsync();
 
       var model = new PostsListModel
       {
@@ -50,9 +43,9 @@ namespace Blog.Web.Controllers
 
     [Route("{categoryCode}/{postUrl}", Order = 3)]
     [HttpGet]
-    public async Task<IActionResult> Post(string categoryCode, string postUrl)
+    public async Task<IActionResult> Post([FromServices] GetPostQuery getPostQuery, string categoryCode, string postUrl)
     {
-      var post = await this.queryCommandBuilder.Build<GetPostQuery>().WithUnpublish().WithoutMarkDown().ExecuteAsync(categoryCode, postUrl);
+      Data.Post post = await getPostQuery.WithUnpublish().WithoutMarkDown().ExecuteAsync(categoryCode, postUrl);
       if (post == null)
       {
         return new NotFoundResult();
@@ -63,17 +56,17 @@ namespace Blog.Web.Controllers
 
     [HttpGet]
     [Route("categories")]
-    public async Task<IActionResult> GetCategories()
+    public async Task<IActionResult> GetCategories([FromServices] GetCategoriesQuery getCategoriesQuery)
     {
-      var categories = await this.queryCommandBuilder.Build<GetCategoriesQuery>().Build().ToListAsync();
+      List<Category> categories = await getCategoriesQuery.Build().ToListAsync();
       return Json(categories);
     }
 
     [Route("draft/{id}/{postUrl}")]
     [HttpGet]
-    public async Task<IActionResult> Post(int id, string postUrl)
+    public async Task<IActionResult> Post([FromServices] GetDraftQuery getDraftQuery, int id, string postUrl)
     {
-      var post = await this.queryCommandBuilder.Build<GetDraftQuery>().ExecuteAsync(id, postUrl);
+      Post post = await getDraftQuery.ExecuteAsync(id, postUrl);
 
       if (post == null)
       {
