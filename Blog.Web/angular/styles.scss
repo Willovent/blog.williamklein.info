@@ -39,6 +39,10 @@ mat-card {
 .mat-card-image {
   width: #{calc(100% + 48px)};
   margin: 0 -24px 16px -24px;
+  @media (max-width: 599px){
+    width: #{calc(100% + 32px)};
+    margin: 0 -16px 16px -16px;
+  }
 }
 .mat-card-header {
   display: flex;

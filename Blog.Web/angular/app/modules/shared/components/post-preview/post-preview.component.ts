@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { Post } from '@bw/models';
 
 @Component({
@@ -9,7 +9,7 @@ import { Post } from '@bw/models';
 export class PostPreviewComponent implements OnInit {
   @Input() post: Post;
 
-  constructor() {}
+  constructor(public elementRef: ElementRef ) {}
 
   ngOnInit() {}
 }

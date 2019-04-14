@@ -1,8 +1,8 @@
 <!-- <div *ngIf="post" [innerHTML]="post.content"></div> -->
 <app-scroll-container>
   <ng-container *ngIf="!!post">
-    <mat-card>
-      <div class="category" mat-card-image [appBackgroundImage]="post.category.imageUrl" alt="category image">
+    <mat-card #card style="opacity: 0">
+      <div  class="category" mat-card-image [appBackgroundImage]="post.category.imageUrl" alt="category image" >
         <h1>
           {{post.title}}
         </h1>

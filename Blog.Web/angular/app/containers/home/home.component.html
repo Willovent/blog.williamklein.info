@@ -1,6 +1,6 @@
 <app-scroll-container>
 <app-header></app-header>
-<app-post-preview class="post" *ngFor="let post of posts" [post]="post" (click)="goToPost(post)"></app-post-preview>
+<app-post-preview #preview class="post" *ngFor="let post of posts" [post]="post" (click)="goToPost(post, preview)"></app-post-preview>
 <div id="show-more" *ngIf="hasMore"><span (click)="nextPage()">En voir plus...</span></div>
 
 </app-scroll-container>
